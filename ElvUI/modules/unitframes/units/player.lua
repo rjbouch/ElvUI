@@ -13,8 +13,14 @@ function UF:Construct_PlayerFrame(frame)
 	frame.ThreatIndicator = self:Construct_Threat(frame);
 	frame.Health = self:Construct_HealthBar(frame, true, true, "RIGHT");
 	frame.Health.frequentUpdates = true;
-	frame.Power = self:Construct_PowerBar(frame, true, true, "LEFT");
-	frame.Power.frequentUpdates = true;
+	--frame.Power = self:Construct_PowerBar(frame, true, true, "LEFT");
+	--frame.Power.frequentUpdates = true;
+	frame.Mana = self:Construct_ManaBar(frame, true, true, "LEFT");
+	frame.Mana.frequentUpdates = true;
+	frame.Energy = self:Construct_EnergyBar(frame, true, true, "LEFT");
+	frame.Energy.frequentUpdates = true;
+	frame.Rage = self:Construct_RageBar(frame, true, true, "LEFT");
+	frame.Rage.frequentUpdates = true;
 	frame.Name = self:Construct_NameText(frame);
 	frame.Portrait3D = self:Construct_Portrait(frame, "model");
 	frame.Portrait2D = self:Construct_Portrait(frame, "texture");
@@ -115,7 +121,13 @@ function UF:Update_PlayerFrame(frame, db)
 
 	UF:Configure_PVPIndicator(frame);
 
-	UF:Configure_Power(frame);
+	--UF:Configure_Power(frame);
+	
+	UF:Configure_Mana(frame);
+
+	UF:Configure_Energy(frame);
+
+	UF:Configure_Rage(frame);
 
 	UF:Configure_Portrait(frame);
 

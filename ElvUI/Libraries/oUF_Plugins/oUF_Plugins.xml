@@ -10,4 +10,7 @@
 	<Include file="oUF_HealComm4\oUF_HealComm4.xml"/>
 	<Include file="oUF_ResComm\oUF_ResComm.xml"/>
 	<Script file="oUF_GPS\oUF_GPS.lua"/>
+	<Script file="oUF_Ascension\oUF_Mana.lua"/>
+	<Script file="oUF_Ascension\oUF_Rage.lua"/>
+	<Script file="oUF_Ascension\oUF_Energy.lua"/>
 </Ui>

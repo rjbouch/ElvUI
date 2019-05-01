@@ -16,6 +16,9 @@
 	<Script file="name.lua"/>
 	<Script file="portrait.lua"/>
 	<Script file="power.lua"/>
+	<Script file="mana.lua"/>
+	<Script file="rage.lua"/>
+	<Script file="energy.lua"/>
 	<Script file="PvPIcon.lua"/>
 	<Script file="pvpindicator.lua"/>
 	<Script file="raiddebuffs.lua"/>

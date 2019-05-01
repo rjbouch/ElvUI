@@ -36,6 +36,8 @@ local UnitClassification = UnitClassification
 local GetUnitSpeed = GetUnitSpeed
 local DEFAULT_AFK_MESSAGE = DEFAULT_AFK_MESSAGE
 local SPELL_POWER_MANA = SPELL_POWER_MANA
+local SPELL_POWER_ENERGY = SPELL_POWER_ENERGY
+local SPELL_POWER_RAGE = SPELL_POWER_RAGE
 local PVP = PVP
 
 ------------------------------------------------------------------------
@@ -379,6 +381,122 @@ end
 ElvUF.Tags.Events["mana:max"] = "UNIT_MAXMANA"
 ElvUF.Tags.Methods["mana:max"] = function(unit)
 	local max = UnitPowerMax(unit, SPELL_POWER_MANA)
+
+	return E:GetFormattedText("CURRENT", max, max)
+end
+
+-- Rage
+ElvUF.Tags.Methods["ragecolor"] = function()
+	local altR, altG, altB = PowerBarColor["RAGE"].r, PowerBarColor["RAGE"].g, PowerBarColor["RAGE"].b
+	local color = ElvUF["colors"].power["RAGE"]
+	if color then
+		return Hex(color[1], color[2], color[3])
+	else
+		return Hex(altR, altG, altB)
+	end
+end
+
+ElvUF.Tags.Events["rage:current"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:current"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_RAGE)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT", min, UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:current-max"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:current-max"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_RAGE)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_MAX", min, UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:current-percent"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:current-percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_RAGE)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_PERCENT", min, UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:current-max-percent"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:current-max-percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_RAGE)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_MAX_PERCENT", min, UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:percent"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_RAGE)
+
+	return min == 0 and " " or E:GetFormattedText("PERCENT", min, UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:deficit"] = "UNIT_RAGE UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:deficit"] = function(unit)
+	return E:GetFormattedText("DEFICIT", UnitPower(unit), UnitPowerMax(unit, SPELL_POWER_RAGE))
+end
+
+ElvUF.Tags.Events["rage:max"] = "UNIT_MAXRAGE"
+ElvUF.Tags.Methods["rage:max"] = function(unit)
+	local max = UnitPowerMax(unit, SPELL_POWER_RAGE)
+
+	return E:GetFormattedText("CURRENT", max, max)
+end
+
+-- Energy
+ElvUF.Tags.Methods["energycolor"] = function()
+	local altR, altG, altB = PowerBarColor["ENERGY"].r, PowerBarColor["ENERGY"].g, PowerBarColor["ENERGY"].b
+	local color = ElvUF["colors"].power["ENERGY"]
+	if color then
+		return Hex(color[1], color[2], color[3])
+	else
+		return Hex(altR, altG, altB)
+	end
+end
+
+ElvUF.Tags.Events["energy:current"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:current"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_ENERGY)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT", min, UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:current-max"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:current-max"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_ENERGY)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_MAX", min, UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:current-percent"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:current-percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_ENERGY)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_PERCENT", min, UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:current-max-percent"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:current-max-percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_ENERGY)
+
+	return min == 0 and " " or E:GetFormattedText("CURRENT_MAX_PERCENT", min, UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:percent"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:percent"] = function(unit)
+	local min = UnitPower(unit, SPELL_POWER_ENERGY)
+
+	return min == 0 and " " or E:GetFormattedText("PERCENT", min, UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:deficit"] = "UNIT_ENERGY UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:deficit"] = function(unit)
+	return E:GetFormattedText("DEFICIT", UnitPower(unit), UnitPowerMax(unit, SPELL_POWER_ENERGY))
+end
+
+ElvUF.Tags.Events["energy:max"] = "UNIT_MAXENERGY"
+ElvUF.Tags.Methods["energy:max"] = function(unit)
+	local max = UnitPowerMax(unit, SPELL_POWER_ENERGY)
 
 	return E:GetFormattedText("CURRENT", max, max)
 end

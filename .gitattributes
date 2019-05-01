@@ -27,3 +27,6 @@
 # Textures
 *.blp           binary
 *.tga           binary
+
+[core]
+  autocrlf = true

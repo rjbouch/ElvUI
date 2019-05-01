@@ -813,6 +813,21 @@ local function GetOptionsTable_Power(hasDetatchOption, updateFunc, groupName, nu
 				type = "toggle",
 				name = L["Enable"]
 			},
+			enableMana = {
+				type = "toggle",
+				order = 11,
+				name = "Enable Mana",
+			},
+			enableRage = {
+				type = "toggle",
+				order = 12,
+				name = "Enable Rage",
+			},
+			enableEnergy = {
+				type = "toggle",
+				order = 13,
+				name = "Enable Energy",
+			},
 			width = {
 				order = 3,
 				type = "select",

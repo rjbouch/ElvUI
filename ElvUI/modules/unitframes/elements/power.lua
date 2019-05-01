@@ -34,8 +34,6 @@ function UF:Construct_PowerBar(frame, bg, text, textPos)
 		end
 
 		power.value:Point(textPos, frame.Health, textPos, x, 0)
-
-		power.value.frequentUpdates = true
 	end
 
 	power.colorDisconnected = false
@@ -50,7 +48,9 @@ function UF:Configure_Power(frame)
 	local db = frame.db
 	local power = frame.Power
 	power.origParent = frame
+	power:Hide()
 
+	--[[
 	if frame.USE_POWERBAR then
 		if not frame:IsElementEnabled("Power") then
 			frame:EnableElement("Power")
@@ -128,13 +128,13 @@ function UF:Configure_Power(frame)
 			power:SetFrameLevel(50) --RaisedElementParent uses 100, we want lower value to allow certain icons and texts to appear above power
 		elseif frame.USE_POWERBAR_OFFSET then
 			if frame.ORIENTATION == "LEFT" then
-				power:Point("TOPRIGHT", frame.Health, "TOPRIGHT", frame.POWERBAR_OFFSET + frame.HAPPINESS_WIDTH, -frame.POWERBAR_OFFSET)
+				power:Point("TOPRIGHT", frame.Health, "TOPRIGHT", frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
 				power:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
 			elseif frame.ORIENTATION == "MIDDLE" then
 				power:Point("TOPLEFT", frame, "TOPLEFT", frame.BORDER + frame.SPACING, -frame.POWERBAR_OFFSET -frame.CLASSBAR_YOFFSET)
 				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.BORDER - frame.SPACING, frame.BORDER)
 			else
-				power:Point("TOPLEFT", frame.Health, "TOPLEFT", -frame.POWERBAR_OFFSET - frame.HAPPINESS_WIDTH, -frame.POWERBAR_OFFSET)
+				power:Point("TOPLEFT", frame.Health, "TOPLEFT", -frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
 				power:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
 			end
 			power:SetFrameLevel(frame.Health:GetFrameLevel() -5) --Health uses 10
@@ -148,20 +148,20 @@ function UF:Configure_Power(frame)
 
 			if frame.ORIENTATION == "LEFT" then
 				power:Width(frame.POWERBAR_WIDTH - frame.BORDER*2)
-				power:Point("RIGHT", frame, "BOTTOMRIGHT", -(frame.BORDER*2 + 4) -frame.HAPPINESS_WIDTH, ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
+				power:Point("RIGHT", frame, "BOTTOMRIGHT", -(frame.BORDER*2 + 4), ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
 			elseif frame.ORIENTATION == "RIGHT" then
 				power:Width(frame.POWERBAR_WIDTH - frame.BORDER*2)
-				power:Point("LEFT", frame, "BOTTOMLEFT", (frame.BORDER*2 + 4) +frame.HAPPINESS_WIDTH, ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
+				power:Point("LEFT", frame, "BOTTOMLEFT", (frame.BORDER*2 + 4), ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
 			else
 				power:Point("LEFT", frame, "BOTTOMLEFT", (frame.BORDER*2 + 4), ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
-				power:Point("RIGHT", frame, "BOTTOMRIGHT", -(frame.BORDER*2 + 4) -frame.HAPPINESS_WIDTH, ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
+				power:Point("RIGHT", frame, "BOTTOMRIGHT", -(frame.BORDER*2 + 4), ((frame.POWERBAR_HEIGHT-frame.BORDER)/2))
 			end
 
 			power:SetFrameLevel(50)
 		else
 			power:Point("TOPRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", -frame.BORDER, -frame.SPACING*3)
 			power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", frame.BORDER, -frame.SPACING*3)
-			power:Height(frame.POWERBAR_HEIGHT - ((frame.BORDER + frame.SPACING)*2))
+			power:Height(frame.POWERBAR_HEIGHT - ((frame.BORDER + frame.SPACING)*2) - (frame.POWERBAR_HEIGHT / 3) )
 
 			power:SetFrameLevel(frame.Health:GetFrameLevel() - 5)
 		end
@@ -207,6 +207,7 @@ function UF:Configure_Power(frame)
 
 	--Transparency Settings
 	UF:ToggleTransparentStatusBar(UF.db.colors.transparentPower, frame.Power, frame.Power.bg)
+	]]
 end
 
 local tokens = {[0] = "MANA", "RAGE", "FOCUS", "ENERGY", "RUNIC_POWER"}
